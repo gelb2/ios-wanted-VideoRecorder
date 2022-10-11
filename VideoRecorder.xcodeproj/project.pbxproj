@@ -13,6 +13,7 @@
 		6321038128F06E7300CC1609 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6321038028F06E7300CC1609 /* Assets.xcassets */; };
 		6321038428F06E7300CC1609 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6321038228F06E7300CC1609 /* LaunchScreen.storyboard */; };
 		6357BBDB28F5B0560035E90B /* VideoPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6357BBDA28F5B0560035E90B /* VideoPlayViewController.swift */; };
+		6357BBDD28F5B28E0035E90B /* Sim.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6357BBDC28F5B28D0035E90B /* Sim.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		6321038328F06E7300CC1609 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6321038528F06E7300CC1609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6357BBDA28F5B0560035E90B /* VideoPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayViewController.swift; sourceTree = "<group>"; };
+		6357BBDC28F5B28D0035E90B /* Sim.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sim.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		6321037628F06E7200CC1609 /* VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				6357BBDC28F5B28D0035E90B /* Sim.mp4 */,
 				6321037728F06E7200CC1609 /* AppDelegate.swift */,
 				6321037928F06E7200CC1609 /* SceneDelegate.swift */,
 				6321037D28F06E7200CC1609 /* Main.storyboard */,
@@ -128,6 +131,7 @@
 				6321038428F06E7300CC1609 /* LaunchScreen.storyboard in Resources */,
 				6321038128F06E7300CC1609 /* Assets.xcassets in Resources */,
 				6321037F28F06E7200CC1609 /* Main.storyboard in Resources */,
+				6357BBDD28F5B28E0035E90B /* Sim.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
