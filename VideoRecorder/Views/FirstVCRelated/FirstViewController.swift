@@ -11,6 +11,8 @@ class FirstViewController: UIViewController {
 
     var model: FirstModel
     
+    lazy var contentView: FirstContentView = FirstContentView(viewModel: self.model.firstContentViewModel)
+    
     init(viewModel: FirstModel) {
         self.model = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -36,6 +38,20 @@ extension FirstViewController: Presentable {
     func initViewHierarchy() {
         self.view = UIView()
         self.view.backgroundColor = .yellow
+        
+        self.view.addSubview(contentView)
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        var constraint: [NSLayoutConstraint] = []
+        defer { NSLayoutConstraint.activate(constraint) }
+        
+        constraint += [
+            contentView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+        ]
     }
     
     func configureView() {
