@@ -47,10 +47,7 @@ extension SceneDelegateSceneBuildable {
         switch scene {
         case .main(.firstViewController(let context)):
             nextScene = buildFirstScene(context: context)
-        case .detail:
-            break
-        case .close:
-            break
+        default: break
         }
         
         return nextScene

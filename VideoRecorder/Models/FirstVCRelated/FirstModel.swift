@@ -10,6 +10,7 @@ import Foundation
 class FirstModel {
     
     //input
+    @MainThreadActor var routeSubject: ( (SceneCategory) -> () )?
     
     //output
     var firstContentViewModel: FirstContentViewModel {
@@ -55,5 +56,12 @@ class FirstModel {
             guard let self = self else { return }
             self.testPagenation()
         }
+    }
+    
+    private func createAlert() {
+        let okAction = AlertActionDependency(title: "확인", action: nil)
+        
+        let alertDependancy = AlertDependency(title: nil, message: "추가 데이터 없음", preferredStyle: .alert, actionSet: [okAction])
+        self.routeSubject?(.alert(alertDependancy))
     }
 }
