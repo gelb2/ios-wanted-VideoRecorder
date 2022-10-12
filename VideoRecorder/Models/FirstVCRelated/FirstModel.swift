@@ -35,10 +35,25 @@ class FirstModel {
         for _ in 0...50 {
             dummys.append(DummyMaker.getDummyVideoData())
         }
-        firstContentViewModel.didReceiveData(dummys)
+        _firstContentViewModel.didReceiveData(dummys)
+    }
+    
+    // TODO: 데이터 더 없을시 얼럿 띄우기 등 추가 처리...
+    func testPagenation() {
+        // TODO: 실제 코어데이터 데이터 가져오기
+        var dummys: [VideoCellContentViewModel] = []
+        
+        for _ in 0...10 {
+            dummys.append(DummyMaker.getDummyVideoData())
+        }
+        print("testPagenation call")
+        _firstContentViewModel.didReceiveData(dummys)
     }
     
     private func bind() {
-        
+        _firstContentViewModel.propergateViewMoreEvent = { [weak self] in
+            guard let self = self else { return }
+            self.testPagenation()
+        }
     }
 }

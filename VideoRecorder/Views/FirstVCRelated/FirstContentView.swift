@@ -99,5 +99,17 @@ extension FirstContentView: UITableViewDataSource {
         return cell
     }
     
+    //사실 여긴 페이지네이션에 필요 없을듯 한데...
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
     
+    //여긴 페이지네이션에 필요하고...
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let indexPathRow = indexPath.row
+        if indexPathRow == viewModel.dataSource.count - 1 {
+            
+            viewModel.didReceiveViewMoreEvent()
+        }
+    }
 }
