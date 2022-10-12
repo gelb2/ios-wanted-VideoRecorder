@@ -9,4 +9,31 @@ import Foundation
 
 class FirstContentViewModel {
     
+    //input
+    var didReceiveData: ([VideoCellContentViewModel]) -> () = { cellViewModel in  }
+    
+    //output
+    var dataSource: [VideoCellContentViewModel] {
+        return _dataSource
+    }
+    
+    //properties
+    @MainThreadActor var propergateData: ( (()) -> () )?
+    
+    private var _dataSource: [VideoCellContentViewModel]
+    
+    
+    
+    init() {
+        self._dataSource = []
+        bind()
+    }
+    
+    private func bind() {
+        didReceiveData = { [weak self] cellViewModel in
+            guard let self = self else { return }
+            self._dataSource = self._dataSource + cellViewModel
+            self.propergateData?(())
+        }
+    }
 }

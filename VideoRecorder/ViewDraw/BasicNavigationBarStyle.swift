@@ -11,6 +11,14 @@ import UIKit
 protocol BasicNavigationBarStyling { }
 
 extension BasicNavigationBarStyling {
+    
+    var recordButtonStyle: (UIBarButtonItem) -> () {
+        {
+            $0.image = UIImage(systemName: "camera")
+            $0.tintColor = .black
+        }
+    }
+    
     var navigationBarStyle: (UINavigationBar) -> () {
         {
             $0.shadowImage = UIImage() //default: nil

@@ -58,7 +58,7 @@ extension FirstContentView: Presentable {
 
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.separatorStyle = .none
+        tableView.separatorStyle = .none
 //        tableView.contentInsetAdjustmentBehavior = .never
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
@@ -69,6 +69,11 @@ extension FirstContentView: Presentable {
 //        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
 //        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
         
+        
+        viewModel.propergateData = { [weak self] _ in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+        }
     }
 }
 
@@ -83,12 +88,14 @@ extension FirstContentView: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return viewModel.dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? VideoCell else { fatalError() }
         
+        let viewModel = viewModel.dataSource[indexPath.row]
+        cell.configureCell(viewModel: viewModel)
         return cell
     }
     
