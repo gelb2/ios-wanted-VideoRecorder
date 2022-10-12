@@ -30,8 +30,8 @@ class VideoPlayViewController: UIViewController, AVPlayerViewControllerDelegate 
     @objc func add(_ sender: Any) {
     }
     @objc func back(_ sender: Any) {
-        //        let firstView = firstViewController() // 첫번째 화면 푸시
-        //        self.navigationController?.pushViewController(firstView, animated: true)
+//                let firstView = firstViewController() // 첫번째 화면 푸시
+                self.navigationController?.popViewController(animated: true)//(firstView, animated: true)
     }
     
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ class VideoPlayViewController: UIViewController, AVPlayerViewControllerDelegate 
         view.backgroundColor = .systemBackground
         self.navigationItem.rightBarButtonItem = self.rightNavButton
         self.navigationItem.leftBarButtonItem = self.leftNavButton
-        title = "네비바 제목"
+        title = "네비바 3번"
         configureButton()
         fileManager
 //        fileVideo()
