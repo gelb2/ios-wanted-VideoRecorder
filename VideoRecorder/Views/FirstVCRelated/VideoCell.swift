@@ -7,10 +7,10 @@
 
 import UIKit
 
-class VideoCell: UITableViewCell {
+class VideoCell: UITableViewCell, VideoCellContentViewStyle {
 
-    var cellView: VideoCellContentView = VideoCellContentView()
-
+    lazy var cellView = VideoCellContentView()
+    
     var viewModel: VideoCellContentViewModel? {
         didSet {
             guard let viewModel = viewModel else { return }
@@ -26,6 +26,10 @@ class VideoCell: UITableViewCell {
         bind()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,7 +42,10 @@ class VideoCell: UITableViewCell {
     
     func congifureCell(viewModel: VideoCellContentViewModel) {
         self.viewModel = viewModel
+        
     }
+    
+    
 
 }
 
@@ -49,15 +56,14 @@ extension VideoCell: Presentable {
         cellView.translatesAutoresizingMaskIntoConstraints = false
         
         var constraint: [NSLayoutConstraint] = []
-        defer { NSLayoutConstraint.activate(constraints) }
+        defer { NSLayoutConstraint.activate(constraint) }
         
         constraint += [
-            cellView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            cellView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-            cellView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-            cellView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            cellView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ]
-        
     }
     
     func configureView() {
