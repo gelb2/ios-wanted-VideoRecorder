@@ -70,11 +70,9 @@ extension FirstContentView: Presentable {
 //        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
         
         
-        viewModel.propergateData = { [weak self] in
+        viewModel.propergateData = { [weak self] _ in
             guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
     }
 }

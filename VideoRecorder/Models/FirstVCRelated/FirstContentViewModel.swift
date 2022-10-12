@@ -18,7 +18,7 @@ class FirstContentViewModel {
     }
     
     //properties
-    var propergateData: () -> () = { }
+    @MainThreadActor var propergateData: ( (()) -> () )?
     
     private var _dataSource: [VideoCellContentViewModel]
     
@@ -33,6 +33,7 @@ class FirstContentViewModel {
         didReceiveData = { [weak self] cellViewModel in
             guard let self = self else { return }
             self._dataSource = self._dataSource + cellViewModel
+            self.propergateData?(())
         }
     }
 }

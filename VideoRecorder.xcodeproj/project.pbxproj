@@ -12,6 +12,7 @@
 		36D8EACF28F72821006CD755 /* VideoEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8EACD28F72821006CD755 /* VideoEntity+CoreDataClass.swift */; };
 		36D8EAD028F72821006CD755 /* VideoEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8EACE28F72821006CD755 /* VideoEntity+CoreDataProperties.swift */; };
 		36D8EAD228F72C1C006CD755 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8EAD128F72C1C006CD755 /* CoreDataManager.swift */; };
+		36D8EAD428F739E7006CD755 /* MainThreadActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8EAD328F739E7006CD755 /* MainThreadActor.swift */; };
 		36E4B43828F560F200A384E8 /* FirstContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E4B43728F560F200A384E8 /* FirstContentView.swift */; };
 		36E4B43B28F5611800A384E8 /* FirstContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E4B43A28F5611800A384E8 /* FirstContentViewModel.swift */; };
 		36E4B43D28F5649D00A384E8 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E4B43C28F5649D00A384E8 /* VideoCell.swift */; };
@@ -50,6 +51,7 @@
 		36D8EACD28F72821006CD755 /* VideoEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		36D8EACE28F72821006CD755 /* VideoEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VideoEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		36D8EAD128F72C1C006CD755 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		36D8EAD328F739E7006CD755 /* MainThreadActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThreadActor.swift; sourceTree = "<group>"; };
 		36E4B43728F560F200A384E8 /* FirstContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstContentView.swift; sourceTree = "<group>"; };
 		36E4B43A28F5611800A384E8 /* FirstContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstContentViewModel.swift; sourceTree = "<group>"; };
 		36E4B43C28F5649D00A384E8 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				4C43259328F543EF004C5FC8 /* HTTPClient.swift */,
 				4C43259128F543E2004C5FC8 /* Entity.swift */,
 				36D8EAC728F724B9006CD755 /* DummyMaker.swift */,
+				36D8EAD328F739E7006CD755 /* MainThreadActor.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				4C43258728F54017004C5FC8 /* BasicNavigationController.swift in Sources */,
 				4C43257728F53924004C5FC8 /* Routable.swift in Sources */,
 				36D8EAD228F72C1C006CD755 /* CoreDataManager.swift in Sources */,
+				36D8EAD428F739E7006CD755 /* MainThreadActor.swift in Sources */,
 				36E4B43F28F564F200A384E8 /* VideoCellContentView.swift in Sources */,
 				36E4B44328F5697300A384E8 /* SceneAction.swift in Sources */,
 				4C43258428F53AEA004C5FC8 /* SceneDelegateRoutable.swift in Sources */,
