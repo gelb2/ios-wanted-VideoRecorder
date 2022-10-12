@@ -221,7 +221,6 @@
 		6321037628F06E7200CC1609 /* VideoRecorder */ = {
 			isa = PBXGroup;
 			children = (
-				36E4B44828F6A91A00A384E8 /* Extensions */,
 				4C43258528F53FF8004C5FC8 /* UIkitClasses */,
 				4C43257028F538A5004C5FC8 /* AppRelated */,
 				4C43257328F538ED004C5FC8 /* Views */,
@@ -229,6 +228,7 @@
 				4C43257128F538DD004C5FC8 /* ViewPresentation */,
 				4C43258828F54032004C5FC8 /* ViewDraw */,
 				4C43257428F538F7004C5FC8 /* Utilities */,
+				36E4B44828F6A91A00A384E8 /* Extensions */,
 				36E4B44D28F6A98F00A384E8 /* Font */,
 				6321038028F06E7300CC1609 /* Assets.xcassets */,
 				6321038228F06E7300CC1609 /* LaunchScreen.storyboard */,

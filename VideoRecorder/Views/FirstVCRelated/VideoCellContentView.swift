@@ -8,16 +8,19 @@
 import UIKit
 import SwiftUI
 
-class VideoCellContentView: UIView {
+class VideoCellContentView: UIView, VideoCellContentViewStyle {
 
     var thumbNailImageView: UIImageView = UIImageView()
-    var timeLabel: UILabel = UILabel()
+    var videoDutationLabel: UILabel = UILabel()
     
     var nameLabel: UILabel = UILabel()
     var dateLabel: UILabel = UILabel()
     
     var detailButton = UIButton()
     var disclosureButton = UIButton()
+    
+    var bigHeight: NSLayoutConstraint?
+    var smallHeight: NSLayoutConstraint?
     
     
     //input
@@ -34,61 +37,90 @@ class VideoCellContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func randomTest() {
+        var random: Bool = Bool.random()
+        if random == true {
+            bigHeight?.priority = UILayoutPriority.init(900)
+            smallHeight?.priority = UILayoutPriority.init(800)
+        } else if random == false {
+            bigHeight?.priority = UILayoutPriority.init(800)
+            smallHeight?.priority = UILayoutPriority.init(900)
+        }
+        
+    }
 
 }
 
 extension VideoCellContentView: Presentable {
     func initViewHierarchy() {
         self.addSubview(thumbNailImageView)
+        self.addSubview(videoDutationLabel)
         self.addSubview(nameLabel)
-        self.addSubview(timeLabel)
+        self.addSubview(dateLabel)
         self.addSubview(detailButton)
         self.addSubview(disclosureButton)
         
         self.subviews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
+
         var constraints: [NSLayoutConstraint] = []
         defer { NSLayoutConstraint.activate(constraints) }
-        
+
         constraints += [
-            thumbNailImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            thumbNailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 8),
-            thumbNailImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
-            thumbNailImageView.widthAnchor.constraint(equalToConstant: 64),
-            thumbNailImageView.heightAnchor.constraint(equalTo: thumbNailImageView.widthAnchor)
+            disclosureButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            disclosureButton.centerYAnchor.constraint(equalTo: thumbNailImageView.centerYAnchor)
+        ]
+
+
+        constraints += [
+            detailButton.trailingAnchor.constraint(equalTo: disclosureButton.leadingAnchor, constant: -8),
+            detailButton.centerYAnchor.constraint(equalTo: thumbNailImageView.centerYAnchor)
+        ]
+
+        constraints += [
+            nameLabel.bottomAnchor.constraint(equalTo: self.thumbNailImageView.centerYAnchor, constant: -4),
+            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: detailButton.leadingAnchor, constant: -8),
+            nameLabel.leadingAnchor.constraint(equalTo: thumbNailImageView.trailingAnchor, constant: 16)
+        ]
+
+        constraints += [
+            dateLabel.topAnchor.constraint(equalTo: self.thumbNailImageView.centerYAnchor, constant: 4),
+            dateLabel.trailingAnchor.constraint(lessThanOrEqualTo: detailButton.leadingAnchor, constant: -8),
+            dateLabel.leadingAnchor.constraint(equalTo: thumbNailImageView.trailingAnchor, constant: 16)
         ]
         
-        constraints += [
-            nameLabel.bottomAnchor.constraint(equalTo: thumbNailImageView.centerYAnchor, constant: -4),
-            nameLabel.leadingAnchor.constraint(equalTo: thumbNailImageView.trailingAnchor, constant: 8),
-            nameLabel.trailingAnchor.constraint(equalTo: detailButton.leadingAnchor, constant: -8)
-        ]
+        bigHeight = thumbNailImageView.heightAnchor.constraint(equalToConstant: 120)
+        bigHeight?.priority = UILayoutPriority.init(900)
+        smallHeight = thumbNailImageView.heightAnchor.constraint(equalToConstant: 80)
+        smallHeight?.priority = UILayoutPriority.init(800)
+
+        guard let bigHeight = bigHeight else { return }
+        guard let smallHeight = smallHeight else { return }
         
         constraints += [
-            dateLabel.topAnchor.constraint(equalTo: thumbNailImageView.centerYAnchor, constant: 4),
-            dateLabel.leadingAnchor.constraint(equalTo: thumbNailImageView.trailingAnchor, constant: 8),
-            dateLabel.trailingAnchor.constraint(equalTo: detailButton.leadingAnchor, constant: -8)
+            thumbNailImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            thumbNailImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            thumbNailImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -16),
+            bigHeight,
+            smallHeight,
+            thumbNailImageView.widthAnchor.constraint(equalTo: thumbNailImageView.heightAnchor, multiplier: 1.2)
         ]
-        
+
         constraints += [
-            detailButton.centerYAnchor.constraint(equalTo: thumbNailImageView.centerYAnchor),
-            detailButton.widthAnchor.constraint(equalToConstant: 24),
-            detailButton.heightAnchor.constraint(equalTo: detailButton.widthAnchor),
-            detailButton.trailingAnchor.constraint(equalTo: disclosureButton.leadingAnchor, constant: -8)
-        ]
-        
-        constraints += [
-            disclosureButton.centerYAnchor.constraint(equalTo: detailButton.centerYAnchor),
-            disclosureButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            disclosureButton.widthAnchor.constraint(equalToConstant: 24),
-            disclosureButton.heightAnchor.constraint(equalTo: disclosureButton.widthAnchor)
+            videoDutationLabel.leadingAnchor.constraint(equalTo: thumbNailImageView.leadingAnchor, constant: 16),
+            videoDutationLabel.trailingAnchor.constraint(lessThanOrEqualTo: thumbNailImageView.trailingAnchor),
+            videoDutationLabel.bottomAnchor.constraint(equalTo: thumbNailImageView.bottomAnchor, constant: -8)
         ]
     }
-    
+
     func configureView() {
-        
+        thumbNailImageView.addStyles(style: thumbNailImageViewStyle)
+        videoDutationLabel.addStyles(style: videoDutationLabelStyle)
+        nameLabel.addStyles(style: nameLabelStyle)
+        dateLabel.addStyles(style: dateLabelStyle)
+        detailButton.addStyles(style: detailButtonStyle)
+        disclosureButton.addStyles(style: disclosureButtonStyle)
     }
     
     func bind() {
@@ -128,7 +160,7 @@ struct VideoCellContentViewPreviewProvider: PreviewProvider {
         VideoCellContentViewPreview {
             let view = VideoCellContentView()
             return view
-        }.previewLayout(.fixed(width: 320, height: 140))
+        }.previewLayout(.fixed(width: 360, height: 100))
     }
 }
 

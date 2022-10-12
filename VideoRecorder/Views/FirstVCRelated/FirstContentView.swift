@@ -54,17 +54,34 @@ extension FirstContentView: Presentable {
     
     func bind() {
         tableView.register(VideoCell.self, forCellReuseIdentifier: reuseIdentifier)
+        // TODO: uitableview automatic height
+
         tableView.delegate = self
         tableView.dataSource = self
+//        tableView.separatorStyle = .none
+//        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        
+        
+//        tableView.contentInsetAdjustmentBehavior = .never
+//        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
+//        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
+//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -20, right: 0)
         
     }
 }
 
 extension FirstContentView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
     
 }
 
 extension FirstContentView: UITableViewDataSource {
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 50
     }

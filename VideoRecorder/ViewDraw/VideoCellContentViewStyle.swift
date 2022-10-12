@@ -18,13 +18,50 @@ extension VideoCellContentViewStyle {
             $0.layer.shadowOpacity = 1
             $0.layer.shadowOffset = CGSize(width: 0, height: 1)
             $0.layer.shadowRadius = 8
+            $0.backgroundColor = .red
+        }
+    }
+    
+    var videoDutationLabelStyle: (UILabel) -> () {
+        {
+            $0.textColor = .white
+            $0.text = "testtest"
+            $0.textAlignment = .center
+            $0.font = UIFont.systemFont(ofSize: 8)
+            $0.numberOfLines = 1
         }
     }
     
     var nameLabelStyle: (UILabel) -> () {
         {
-            $0.textColor = UIColor(red: 0.294, green: 0.306, blue: 0.341, alpha: 1)
-            $0.font = .notoSans(weight: .kr_Medium, size: 14)
+            $0.textColor = .black
+            $0.text = "test"
+            $0.font = UIFont.systemFont(ofSize: 14)
+            $0.numberOfLines = 1
+        }
+    }
+    
+    var dateLabelStyle: (UILabel) -> () {
+        {
+            $0.textColor = .black
+            $0.text = "testsdfsfsdfsdfsdf"
+            $0.font = UIFont.systemFont(ofSize: 8)
+            $0.numberOfLines = 1
+        }
+    }
+    
+    var detailButtonStyle: (UIButton) -> () {
+        {
+            let image = UIImage(systemName: "rectangle.and.pencil.and.ellipsis")
+            $0.setImage(image, for: .normal)
+        }
+    }
+    
+    var disclosureButtonStyle: (UIButton) -> () {
+        {
+            // TODO: 이미지 set
+            let image = UIImage(systemName: "chevron.right")
+            $0.setImage(image, for: .normal)
         }
     }
 }
