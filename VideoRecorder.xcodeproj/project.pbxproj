@@ -12,6 +12,9 @@
 		6321037F28F06E7200CC1609 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6321037D28F06E7200CC1609 /* Main.storyboard */; };
 		6321038128F06E7300CC1609 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6321038028F06E7300CC1609 /* Assets.xcassets */; };
 		6321038428F06E7300CC1609 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6321038228F06E7300CC1609 /* LaunchScreen.storyboard */; };
+		6357BBDB28F5B0560035E90B /* VideoPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6357BBDA28F5B0560035E90B /* VideoPlayViewController.swift */; };
+		6357BBDD28F5B28E0035E90B /* Sim.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6357BBDC28F5B28D0035E90B /* Sim.mp4 */; };
+		6357BBE028F653C00035E90B /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6357BBDF28F653C00035E90B /* FileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		6321038028F06E7300CC1609 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6321038328F06E7300CC1609 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6321038528F06E7300CC1609 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6357BBDA28F5B0560035E90B /* VideoPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayViewController.swift; sourceTree = "<group>"; };
+		6357BBDC28F5B28D0035E90B /* Sim.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sim.mp4; sourceTree = "<group>"; };
+		6357BBDF28F653C00035E90B /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +67,8 @@
 				6321038028F06E7300CC1609 /* Assets.xcassets */,
 				6321038228F06E7300CC1609 /* LaunchScreen.storyboard */,
 				6321038528F06E7300CC1609 /* Info.plist */,
+				6357BBDA28F5B0560035E90B /* VideoPlayViewController.swift */,
+				6357BBDF28F653C00035E90B /* FileManager.swift */,
 			);
 			path = VideoRecorder;
 			sourceTree = "<group>";
