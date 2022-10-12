@@ -11,7 +11,7 @@ import SwiftUI
 class VideoCellContentView: UIView, VideoCellContentViewStyle {
 
     var thumbNailImageView: UIImageView = UIImageView()
-    var videoDutationLabel: UILabel = UILabel()
+    var videoDurationLabel: UILabel = UILabel()
     
     var nameLabel: UILabel = UILabel()
     var dateLabel: UILabel = UILabel()
@@ -37,8 +37,9 @@ class VideoCellContentView: UIView, VideoCellContentViewStyle {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // TODO: remove
     func randomTest() {
-        var random: Bool = Bool.random()
+        let random: Bool = Bool.random()
         if random == true {
             bigHeight?.priority = UILayoutPriority.init(900)
             smallHeight?.priority = UILayoutPriority.init(800)
@@ -54,7 +55,7 @@ class VideoCellContentView: UIView, VideoCellContentViewStyle {
 extension VideoCellContentView: Presentable {
     func initViewHierarchy() {
         self.addSubview(thumbNailImageView)
-        self.addSubview(videoDutationLabel)
+        self.addSubview(videoDurationLabel)
         self.addSubview(nameLabel)
         self.addSubview(dateLabel)
         self.addSubview(detailButton)
@@ -108,15 +109,15 @@ extension VideoCellContentView: Presentable {
         ]
 
         constraints += [
-            videoDutationLabel.leadingAnchor.constraint(equalTo: thumbNailImageView.leadingAnchor, constant: 16),
-            videoDutationLabel.trailingAnchor.constraint(lessThanOrEqualTo: thumbNailImageView.trailingAnchor),
-            videoDutationLabel.bottomAnchor.constraint(equalTo: thumbNailImageView.bottomAnchor, constant: -8)
+            videoDurationLabel.leadingAnchor.constraint(equalTo: thumbNailImageView.leadingAnchor, constant: 16),
+            videoDurationLabel.trailingAnchor.constraint(lessThanOrEqualTo: thumbNailImageView.trailingAnchor),
+            videoDurationLabel.bottomAnchor.constraint(equalTo: thumbNailImageView.bottomAnchor, constant: -8)
         ]
     }
 
     func configureView() {
         thumbNailImageView.addStyles(style: thumbNailImageViewStyle)
-        videoDutationLabel.addStyles(style: videoDutationLabelStyle)
+        videoDurationLabel.addStyles(style: videoDurationLabelStyle)
         nameLabel.addStyles(style: nameLabelStyle)
         dateLabel.addStyles(style: dateLabelStyle)
         detailButton.addStyles(style: detailButtonStyle)
@@ -126,6 +127,11 @@ extension VideoCellContentView: Presentable {
     func bind() {
         didReceiveViewModel = { [weak self] viewModel in
             guard let self = self else { return }
+            // TODO: 진짜 섬네일 이미지 어떻게든 넣기
+            self.thumbNailImageView.image = UIImage()
+            self.nameLabel.text = viewModel.name
+            self.dateLabel.text = viewModel.date
+            self.videoDurationLabel.text = viewModel.duration
         }
     }
     

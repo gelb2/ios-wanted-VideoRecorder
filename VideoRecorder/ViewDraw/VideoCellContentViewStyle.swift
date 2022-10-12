@@ -22,7 +22,7 @@ extension VideoCellContentViewStyle {
         }
     }
     
-    var videoDutationLabelStyle: (UILabel) -> () {
+    var videoDurationLabelStyle: (UILabel) -> () {
         {
             $0.textColor = .white
             $0.text = "testtest"

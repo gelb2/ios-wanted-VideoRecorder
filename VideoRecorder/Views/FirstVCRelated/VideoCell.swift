@@ -40,9 +40,8 @@ class VideoCell: UITableViewCell, VideoCellContentViewStyle {
         // Configure the view for the selected state
     }
     
-    func congifureCell(viewModel: VideoCellContentViewModel) {
+    func configureCell(viewModel: VideoCellContentViewModel) {
         self.viewModel = viewModel
-        
     }
     
     

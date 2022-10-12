@@ -8,7 +8,7 @@
 import Foundation
 
 //TODO: RepositoryProtocol 대신 useCase?
-protocol RepositoryProtocol: FireBaseManagerProtocol, FileManagerProtocol {
+protocol RepositoryProtocol: FireBaseManagerProtocol, CoreDataManagerProtocol {
     
 }
 
@@ -20,17 +20,28 @@ protocol FireBaseManagerProtocol {
 }
 
 //파일저장 관련 프로토콜
-protocol FileManagerProtocol {
+protocol CoreDataManagerProtocol {
     
     /*
      func fetchFromFileManager(fileName name: String) async throws -> MotionFile
      func saveToFileManager(file: MotionFile) async throws
      func deleteFromFileManager(fileName name: String) async throws
      */
+    
+    associatedtype dataType
+    
+    var coreDataManager: CoreDataManager { get set }
+    
+    // TODO: async await 처리
+    func fetchFromCoreData() -> [dataType]
+    func insertToCoreData(_ model: dataType)
+    func deleteFromCoreData(_ model: dataType)
+    
 }
 
 class Repository: RepositoryProtocol {
     
+    var coreDataManager: CoreDataManager = CoreDataManager.shared
     
     private var httpClient: HTTPClientProtocol
     
@@ -43,6 +54,18 @@ extension Repository: FireBaseManagerProtocol {
     
 }
 
-extension Repository: FileManagerProtocol {
+extension Repository: CoreDataManagerProtocol {
+
+    func fetchFromCoreData() -> [VideoModel] {
+        let data = coreDataManager.fetchData()
+        return data
+    }
     
+    func insertToCoreData(_ model: VideoModel) {
+        coreDataManager.saveData(model)
+    }
+    
+    func deleteFromCoreData(_ model: VideoModel) {
+        coreDataManager.removeData(model)
+    }
 }

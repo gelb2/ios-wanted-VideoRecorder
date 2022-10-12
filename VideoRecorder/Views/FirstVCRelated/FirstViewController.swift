@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController, BasicNavigationBarStyling {
 
     var model: FirstModel
     
@@ -30,6 +30,7 @@ class FirstViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        model.populateData()
         // Do any additional setup after loading the view.
     }
 }
@@ -50,15 +51,22 @@ extension FirstViewController: Presentable {
             contentView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            contentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ]
     }
     
     func configureView() {
+        navigationItem.title = "목록"
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(recordAction))
+        navigationItem.rightBarButtonItem?.addStyles(style: recordButtonStyle)
     }
     
     func bind() {
+        
+    }
+    
+    @objc func recordAction() {
         
     }
     
