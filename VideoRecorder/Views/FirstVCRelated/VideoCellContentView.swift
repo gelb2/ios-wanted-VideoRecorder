@@ -127,7 +127,7 @@ extension VideoCellContentView: Presentable {
     func bind() {
         didReceiveViewModel = { [weak self] viewModel in
             guard let self = self else { return }
-            // TODO: 진짜 섬네일 이미지 어떻게든 넣기
+            // TODO: 진짜 섬네일 이미지 어떻게든 넣기   
             self.thumbNailImageView.image = UIImage()
             self.nameLabel.text = viewModel.name
             self.dateLabel.text = viewModel.date

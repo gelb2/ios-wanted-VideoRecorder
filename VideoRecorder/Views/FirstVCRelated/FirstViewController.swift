@@ -60,6 +60,7 @@ extension FirstViewController: Presentable {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(recordAction))
         navigationItem.rightBarButtonItem?.addStyles(style: recordButtonStyle)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "〈", style: .plain, target: self, action:  #selector(back))
     }
     @objc func back() {
         let camera = UIImagePickerController()

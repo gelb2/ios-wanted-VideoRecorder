@@ -88,14 +88,21 @@ extension FirstContentView: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.dataSource.count
+//        return viewModel.dataSource.count
+        return CoreDataManager.shared.coreList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? VideoCell else { fatalError() }
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? VideoCell else { fatalError() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for: indexPath) as! VideoCell
         
-        let viewModel = viewModel.dataSource[indexPath.row]
-        cell.configureCell(viewModel: viewModel)
+        let target = CoreDataManager.shared.coreList[indexPath.row]
+        
+        
+        cell.nameLabel.text = target.name
+        
+//        let viewModel = viewModel.dataSource[indexPath.row]
+//        cell.configureCell(viewModel: viewModel)
         return cell
     }
     
