@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, BasicNavigationBarStyling {
+class FirstViewController: UIViewController, BasicNavigationBarStyling, FirstViewControllerRoutable {
 
     var model: FirstModel
     
@@ -63,7 +63,10 @@ extension FirstViewController: Presentable {
     }
     
     func bind() {
-        
+        model.routeSubject = { [weak self] sceneCategory in
+            guard let self = self else { return }
+            self.route(to: sceneCategory)
+        }
     }
     
     @objc func recordAction() {

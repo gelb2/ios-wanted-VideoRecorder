@@ -12,7 +12,12 @@ class FirstContentViewModel {
     //input
     var didReceiveData: ([VideoCellContentViewModel]) -> () = { cellViewModel in  }
     
+    var didReceiveViewMoreEvent: () -> () = { }
+    
     //output
+    
+    var propergateViewMoreEvent: () -> () = { }
+    
     var dataSource: [VideoCellContentViewModel] {
         return _dataSource
     }
@@ -34,6 +39,12 @@ class FirstContentViewModel {
             guard let self = self else { return }
             self._dataSource = self._dataSource + cellViewModel
             self.propergateData?(())
+        }
+        
+        didReceiveViewMoreEvent = { [weak self] in
+            guard let self = self else { return }
+            print("didReceiveViewMoreEvent")
+            self.propergateViewMoreEvent()
         }
     }
 }
