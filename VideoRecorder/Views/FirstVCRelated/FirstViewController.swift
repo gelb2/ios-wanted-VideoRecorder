@@ -61,9 +61,31 @@ extension FirstViewController: Presentable {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(recordAction))
         navigationItem.rightBarButtonItem?.addStyles(style: recordButtonStyle)
     }
+    @objc func back() {
+        let camera = UIImagePickerController()
+        camera.delegate = self
+        camera.sourceType = .camera
+        camera.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+        camera.allowsEditing = false
+        self.present(camera, animated: true)
+//                let firstView = ViewController() // 첫번째 화면 푸시
+//                self.navigationController?.pushViewController(firstView, animated: true)
+    }
+ 
     
     func bind() {
         
+    }
+}
+
+extension FirstViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        //동영상 저장
+        if let url = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) {
+                    UISaveVideoAtPathToSavedPhotosAlbum(url.path, self, #selector(savedVideo), nil)
+                }
+        picker.dismiss(animated: true, completion: nil)
     }
     
     @objc func recordAction() {
