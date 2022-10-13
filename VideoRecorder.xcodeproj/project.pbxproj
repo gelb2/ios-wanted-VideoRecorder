@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3602898E28F8332A005B75C3 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3602898D28F8332A005B75C3 /* FileManager+Extension.swift */; };
+		3602899128F8342F005B75C3 /* VideoFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3602899028F8342F005B75C3 /* VideoFile.swift */; };
 		36B15D6628F7F40900BFB7F4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 36B15D6528F7F40900BFB7F4 /* GoogleService-Info.plist */; };
 		36D8EAC828F724B9006CD755 /* DummyMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D8EAC728F724B9006CD755 /* DummyMaker.swift */; };
 		36D8EACB28F72782006CD755 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 36D8EAC928F72782006CD755 /* Model.xcdatamodeld */; };
@@ -50,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		350F9A225D32415C4C79C9C1 /* Pods-VideoRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoRecorder.release.xcconfig"; path = "Target Support Files/Pods-VideoRecorder/Pods-VideoRecorder.release.xcconfig"; sourceTree = "<group>"; };
+		3602898D28F8332A005B75C3 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		3602899028F8342F005B75C3 /* VideoFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFile.swift; sourceTree = "<group>"; };
 		36B15D6528F7F40900BFB7F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		36D8EAC728F724B9006CD755 /* DummyMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyMaker.swift; sourceTree = "<group>"; };
 		36D8EACA28F72782006CD755 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -112,6 +116,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3602898F28F8341D005B75C3 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				3602899028F8342F005B75C3 /* VideoFile.swift */,
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
 		36D8EACC28F7278E006CD755 /* CoreDataRelated */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +150,7 @@
 			children = (
 				36E4B44928F6A92D00A384E8 /* UIFont+Extension.swift */,
 				36E4B44B28F6A94800A384E8 /* Date+Extension.swift */,
+				3602898D28F8332A005B75C3 /* FileManager+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -266,6 +279,7 @@
 				4C43257428F538F7004C5FC8 /* Utilities */,
 				36D8EACC28F7278E006CD755 /* CoreDataRelated */,
 				36E4B44828F6A91A00A384E8 /* Extensions */,
+				3602898F28F8341D005B75C3 /* FileManager */,
 				36E4B44D28F6A98F00A384E8 /* Font */,
 				4C43258528F53FF8004C5FC8 /* UIkitClasses */,
 				6321038028F06E7300CC1609 /* Assets.xcassets */,
@@ -416,6 +430,7 @@
 				4C43259428F543EF004C5FC8 /* HTTPClient.swift in Sources */,
 				6321037828F06E7200CC1609 /* AppDelegate.swift in Sources */,
 				36E4B43B28F5611800A384E8 /* FirstContentViewModel.swift in Sources */,
+				3602899128F8342F005B75C3 /* VideoFile.swift in Sources */,
 				4C43258228F53A11004C5FC8 /* ThirdModel.swift in Sources */,
 				36E4B44A28F6A92D00A384E8 /* UIFont+Extension.swift in Sources */,
 				36E4B44128F5658400A384E8 /* VideoCellContentViewModel.swift in Sources */,
@@ -427,6 +442,7 @@
 				36E4B44528F5698900A384E8 /* FirstSceneAction.swift in Sources */,
 				36D8EAD028F72821006CD755 /* VideoEntity+CoreDataProperties.swift in Sources */,
 				4C43258A28F5403C004C5FC8 /* Presentable.swift in Sources */,
+				3602898E28F8332A005B75C3 /* FileManager+Extension.swift in Sources */,
 				36E4B43828F560F200A384E8 /* FirstContentView.swift in Sources */,
 				4C43257E28F539FD004C5FC8 /* FirstModel.swift in Sources */,
 				36D8EACB28F72782006CD755 /* Model.xcdatamodeld in Sources */,
