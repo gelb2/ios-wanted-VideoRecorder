@@ -38,7 +38,7 @@ class FirstViewController: UIViewController, BasicNavigationBarStyling, FirstVie
 extension FirstViewController: Presentable {
     func initViewHierarchy() {
         self.view = UIView()
-        self.view.backgroundColor = .yellow
+        self.view.backgroundColor = .white
         
         self.view.addSubview(contentView)
         
@@ -70,7 +70,7 @@ extension FirstViewController: Presentable {
     }
     
     @objc func recordAction() {
-        
+        model.didTapRecordButton()
     }
     
     

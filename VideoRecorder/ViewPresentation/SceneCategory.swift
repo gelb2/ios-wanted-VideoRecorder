@@ -17,6 +17,7 @@ enum SceneCategory {
     
     enum mainScene {
         case firstViewController(context: SceneContext<FirstModel>)
+        case firstViewControllerWithAction(context: SceneContext<FirstSceneAction>)
     }
     
     enum detailScene {

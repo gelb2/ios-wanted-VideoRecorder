@@ -15,10 +15,11 @@ protocol FirstViewControllerRoutable: Routable, FirstViewControllerSceneBuildabl
 extension FirstViewControllerRoutable where Self: FirstViewController {
     func route(to Scene: SceneCategory) {
         switch Scene {
-        case .main(let mainScene):
+        case .main(_):
             break
-        case .detail(let detailScene):
-            break
+        case .detail(.secondViewController(let context)):
+            guard let nextScene = buildSecondScene(context: context) as? UIViewController else { return }
+            self.navigationController?.pushViewController(nextScene, animated: true)
         case .close:
             break
         case .closeWithAction(_):
@@ -27,6 +28,7 @@ extension FirstViewControllerRoutable where Self: FirstViewController {
             let nextScene = buildScene(scene: Scene)
             guard let nextVC = nextScene as? UIViewController else { return }
             self.present(nextVC, animated: true)
+        default: break
         }
     }
 }
@@ -35,9 +37,13 @@ protocol FirstViewControllerSceneBuildable: SceneBuildable { }
 
 extension FirstViewControllerSceneBuildable {
     
-    // TODO: 2,3번째 뷰컨트롤러 빌드
-    func buildSecondScene() {
+    func buildSecondScene(context: SceneContext<SecondModel>) -> Scenable {
+        var nextScene: Scenable
+        let secondModel = context.dependency
+        let secondVC = SecondViewController(viewModel: secondModel)
+        nextScene = secondVC
         
+        return nextScene
     }
     
     func buildAlert(context: AlertDependency) -> Scenable {
@@ -53,16 +59,17 @@ extension FirstViewControllerSceneBuildable {
     func buildScene(scene: SceneCategory) -> Scenable? {
         var nextScene: Scenable?
         switch scene {
-        case .main(.firstViewController(let context)):
+        case .main(.firstViewController(_)):
              break
-        case .detail:
-            break
+        case .detail(.secondViewController(let context)):
+            nextScene = buildSecondScene(context: context)
         case .close:
             break
         case .closeWithAction(_):
             break
         case .alert(let context):
            nextScene = buildAlert(context: context)
+        default: break
         }
         
         return nextScene
