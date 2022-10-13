@@ -8,18 +8,22 @@
 import UIKit
 import AVFoundation
 import MobileCoreServices
+import AVKit
+
 
 
 class ViewController: UIViewController {
     
-    var session: AVCaptureSession!
-    var backInput : AVCaptureInput!
-    var frontInput : AVCaptureInput!
-    var videoOutput : AVCaptureVideoDataOutput!
+    var session: AVCaptureSession?
+    var backInput : AVCaptureInput?
+    var frontInput : AVCaptureInput?
+    var videoOutput : AVCaptureVideoDataOutput?
     let output = AVCapturePhotoOutput()  //사진촬영
     let previewLayer = AVCaptureVideoPreviewLayer()
     var backCameraOn = true
     
+    let playerViewController = AVPlayerViewController()
+    let player = AVPlayer()
     
     
     private let shutterButton: UIButton = {
@@ -117,7 +121,14 @@ class ViewController: UIViewController {
         output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     @objc private func keepPhoto() {
-        //        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        let camera = UIImagePickerController()
+        camera.delegate = self
+        camera.sourceType = .camera
+        camera.mediaTypes = [kUTTypeMovie as String]
+        camera.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+        camera.allowsEditing = false
+        self.present(camera, animated: true)
+        
     }
     @objc func switchCamera() {
         if let session = session {
@@ -178,4 +189,23 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
         view.addSubview(imageView)
     }
     
+}
+
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        //동영상 저장
+        if let url = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) {
+            UISaveVideoAtPathToSavedPhotosAlbum(url.path, self, #selector(savedVideo), nil)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    @objc func savedVideo(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?) {
+                   if let error = error {
+                       print(error)
+                       return
+                   }
+                   print("success")
+               }
 }
