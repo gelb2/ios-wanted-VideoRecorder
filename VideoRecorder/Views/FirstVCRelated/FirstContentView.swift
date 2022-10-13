@@ -8,7 +8,7 @@
 import UIKit
 
 class FirstContentView: UIView {
-
+    
     var viewModel: FirstContentViewModel
     
     var tableView = UITableView()
