@@ -17,13 +17,24 @@ class VideoCell: UITableViewCell, VideoCellContentViewStyle {
             cellView.didReceiveViewModel(viewModel)
         }
     }
-    
+    var nameLabel : UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 40)
+        return label
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         initViewHierarchy()
         configureView()
         bind()
+        addSubview(nameLabel)
+        configure()
+    }
+    func configure() {
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        nameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -40).isActive = true
     }
     
     override func prepareForReuse() {

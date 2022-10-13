@@ -8,7 +8,7 @@
 import UIKit
 
 class FirstContentView: UIView {
-
+    
     var viewModel: FirstContentViewModel
     
     var tableView = UITableView()
@@ -88,28 +88,23 @@ extension FirstContentView: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.dataSource.count
+//        return viewModel.dataSource.count
+        return CoreDataManager.shared.coreList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? VideoCell else { fatalError() }
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? VideoCell else { fatalError() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VideoCell", for: indexPath) as! VideoCell
         
-        let viewModel = viewModel.dataSource[indexPath.row]
-        cell.configureCell(viewModel: viewModel)
+        let target = CoreDataManager.shared.coreList[indexPath.row]
+        
+        
+        cell.nameLabel.text = target.name
+        
+//        let viewModel = viewModel.dataSource[indexPath.row]
+//        cell.configureCell(viewModel: viewModel)
         return cell
     }
     
-    //사실 여긴 페이지네이션에 필요 없을듯 한데...
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-    }
     
-    //여긴 페이지네이션에 필요하고...
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let indexPathRow = indexPath.row
-        if indexPathRow == viewModel.dataSource.count - 1 {
-            
-            viewModel.didReceiveViewMoreEvent()
-        }
-    }
 }
