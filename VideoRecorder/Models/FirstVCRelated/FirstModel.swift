@@ -7,12 +7,16 @@
 
 import Foundation
 
-class FirstModel {
+class FirstModel: SceneActionReceiver {
     
     //input
-    @MainThreadActor var routeSubject: ( (SceneCategory) -> () )?
+    var didTapRecordButton = { }
+    
+    var didReceiveSceneAction: (SceneAction) -> () = { action in }
     
     //output
+    @MainThreadActor var routeSubject: ( (SceneCategory) -> () )?
+    
     var firstContentViewModel: FirstContentViewModel {
         return _firstContentViewModel
     }
@@ -55,6 +59,31 @@ class FirstModel {
         _firstContentViewModel.propergateViewMoreEvent = { [weak self] in
             guard let self = self else { return }
             self.testPagenation()
+        }
+        
+        didReceiveSceneAction = { [weak self] action in
+            
+            guard let self = self else { return }
+            
+            guard let action = action as? FirstSceneAction else { return }
+            
+            print("didReceive Scene Action")
+            
+            switch action {
+            case .refresh:
+                self.populateData()
+            }
+        }
+        
+        didTapRecordButton = { [weak self] in
+            guard let self = self else { return }
+            
+            let httpClient = HTTPClient()
+            let repository = Repository(httpClient: httpClient)
+            
+            let model = SecondModel(repository: repository)
+            let context = SceneContext(dependency: model)
+            self.routeSubject?(.detail(.secondViewController(context: context)))
         }
     }
     
