@@ -55,12 +55,46 @@ extension FirstViewController: Presentable {
     }
     
     func configureView() {
+        navigationItem.title = "목록"
         
+    
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "〈", style: .plain, target: self, action:  #selector(back))
+        
+      
     }
+    @objc func back() {
+        let camera = UIImagePickerController()
+        camera.delegate = self
+        camera.sourceType = .camera
+        camera.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+        camera.allowsEditing = false
+        self.present(camera, animated: true)
+//                let firstView = ViewController() // 첫번째 화면 푸시
+//                self.navigationController?.pushViewController(firstView, animated: true)
+    }
+ 
     
     func bind() {
         
     }
+}
+
+extension FirstViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        //동영상 저장
+        if let url = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) {
+                    UISaveVideoAtPathToSavedPhotosAlbum(url.path, self, #selector(savedVideo), nil)
+                }
+        picker.dismiss(animated: true, completion: nil)
+    }
     
+    @objc func savedVideo(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?) {
+                if let error = error {
+                    print(error)
+                    return
+                }
+                print("success")
+            }
     
 }
