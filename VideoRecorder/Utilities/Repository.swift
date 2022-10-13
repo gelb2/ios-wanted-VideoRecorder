@@ -8,25 +8,17 @@
 import Foundation
 
 //TODO: RepositoryProtocol 대신 useCase?
-protocol RepositoryProtocol: FireBaseManagerProtocol, CoreDataManagerProtocol {
+protocol RepositoryProtocol: FireBaseManagerProtocol, CoreDataManagerProtocol, FileManagerProtocol {
     
 }
 
-//Firebase 데이터 관련
 protocol FireBaseManagerProtocol {
     
     //var fireBaseManager: ??? { get set }
     
 }
 
-//파일저장 관련 프로토콜
 protocol CoreDataManagerProtocol {
-    
-    /*
-     func fetchFromFileManager(fileName name: String) async throws -> MotionFile
-     func saveToFileManager(file: MotionFile) async throws
-     func deleteFromFileManager(fileName name: String) async throws
-     */
     
     associatedtype dataType
     
@@ -39,9 +31,20 @@ protocol CoreDataManagerProtocol {
     
 }
 
+// TODO: make file model for return + save
+protocol FileManagerProtocol {
+    
+    var fileManager: FileManager { get set }
+    
+    func fetchFromFileManager(fileName name: String) throws -> VideoFile
+    func saveToFileManager(file: VideoFile) throws
+    func deleteFromFileManager(fileName name: String) throws
+}
+
 class Repository: RepositoryProtocol {
     
     var coreDataManager: CoreDataManager = CoreDataManager.shared
+    var fileManager: FileManager = FileManager.default
     
     private var httpClient: HTTPClientProtocol
     
@@ -68,4 +71,22 @@ extension Repository: CoreDataManagerProtocol {
     func deleteFromCoreData(_ model: VideoModel) {
         coreDataManager.removeData(model)
     }
+}
+
+extension Repository: FileManagerProtocol {
+    func fetchFromFileManager(fileName name: String) throws -> VideoFile {
+        let result = try fileManager.load(name: name)
+        return result
+    }
+    
+    func saveToFileManager(file: VideoFile) throws {
+        _ = try fileManager.save(file: file)
+        return
+    }
+    
+    func deleteFromFileManager(fileName name: String) throws {
+        _ = try fileManager.remove(name: name)
+        return
+    }
+    
 }
