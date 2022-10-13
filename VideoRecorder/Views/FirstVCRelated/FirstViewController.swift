@@ -92,5 +92,12 @@ extension FirstViewController: UIImagePickerControllerDelegate, UINavigationCont
         
     }
     
+    @objc func savedVideo(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?) {
+                if let error = error {
+                    print(error)
+                    return
+                }
+                print("success")
+            }
     
 }
