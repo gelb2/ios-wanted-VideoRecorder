@@ -74,6 +74,12 @@ extension FirstContentView: Presentable {
             guard let self = self else { return }
             self.tableView.reloadData()
         }
+        
+        viewModel.propergateDeleteRowEvent = { [weak self] indexPathRow in
+            guard let self = self else { return }
+            let indexPath = IndexPath.init(row: indexPathRow, section: 0)
+            self.tableView.deleteRows(at: [indexPath], with: .right)
+        }
     }
 }
 
@@ -86,6 +92,28 @@ extension FirstContentView: UITableViewDelegate {
 
 extension FirstContentView: UITableViewDataSource {
     
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "지우기") { [weak self] action, view, completionHandler in
+            
+            // TODO: viewModel
+            guard let self = self else { return }
+            self.viewModel.didReceiveDeleteVideoEvent(indexPath.row)
+            completionHandler(true)
+            
+        }
+        action.backgroundColor = .red
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "다른액션") { action, view, completionHandler in
+            // TODO: viewModel
+            completionHandler(true)
+        }
+        action.backgroundColor = .blue
+        return UISwipeActionsConfiguration(actions: [action])
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.dataSource.count

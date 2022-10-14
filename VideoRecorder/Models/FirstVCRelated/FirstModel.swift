@@ -61,6 +61,13 @@ class FirstModel: SceneActionReceiver {
             self.testPagenation()
         }
         
+        // TODO: 실제 코어데이터, 파일매니저 등 데이터 set 됨에 따라 수정 필요
+        _firstContentViewModel.propergateDeleteVideoEvent = { [weak self] indexPathRow in
+            guard let self = self else { return }
+            //Do Some Delete Video, coredata reference, filemanager data here
+            self._firstContentViewModel.didReceiveDeleteRowEvent(indexPathRow)
+        }
+        
         didReceiveSceneAction = { [weak self] action in
             
             guard let self = self else { return }
