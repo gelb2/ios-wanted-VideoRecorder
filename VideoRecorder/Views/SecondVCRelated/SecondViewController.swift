@@ -44,7 +44,7 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
     private(set) var isRecording: Bool = false
     let playerViewController = AVPlayerViewController()
     let player = AVPlayer()
-    
+  
     private let sesstion1 = AVCaptureSession()
     let videoDevice = AVCaptureDevice.default(.builtInDuoCamera, for: .video, position: .back)
     
@@ -68,15 +68,15 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
     
     private let keepButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 5
+        button.layer.cornerRadius = 25
+        button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     private let switchCameraButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 70, height: 70))
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 5
+        button.layer.cornerRadius = 60
+        button.layer.borderWidth = 10
         button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
@@ -104,35 +104,62 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
         switchCameraButton.center = CGPoint(x: view.frame.size.width/1.25, y: view.frame.size.height - 200)
         switchCameraButton.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
         
-        let videoDevice = bestDevice(in: .back)
+//        let videoDevice = bestDevice(in: .back)
         
         // Do any additional setup after loading the view.
     }
     
+
     
     
+//    func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
+//        var deviceTypes: [AVCaptureDevice.DeviceType]!
+//
+//        if #available(iOS 11.1, *) {
+//            deviceTypes = [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera]
+//        } else {
+//            deviceTypes = [.builtInDualCamera, .builtInWideAngleCamera]
+//        }
+//
+//        let discoverySession = AVCaptureDevice.DiscoverySession(
+//            deviceTypes: deviceTypes,
+//            mediaType: .video,
+//            position: .unspecified
+//        )
+//
+//        let devices = discoverySession.devices
+//        guard !devices.isEmpty else { fatalError("Missing capture devices.")}
+//
+//        return devices.first(where: { device in device.position == position })!
+//    }
     
-    func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
-        var deviceTypes: [AVCaptureDevice.DeviceType]!
-        
-        if #available(iOS 11.1, *) {
-            deviceTypes = [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera]
-        } else {
-            deviceTypes = [.builtInDualCamera, .builtInWideAngleCamera]
+    func getVideoDevice() -> AVCaptureDevice {
+            if let device = AVCaptureDevice.default(.builtInTrueDepthCamera, for: .video, position: .back) {
+                return device
+            } else if let device = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
+                return device
+            } else if let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+                return device
+            } else {
+                fatalError("Missing expected back camera device.")
+            }
         }
-        
-        let discoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: deviceTypes,
-            mediaType: .video,
-            position: .unspecified
-        )
-        
-        let devices = discoverySession.devices
-        guard !devices.isEmpty else { fatalError("Missing capture devices.")}
-        
-        return devices.first(where: { device in device.position == position })!
-    }
     
+    func setupCaptureSession() {
+           self.sesstion1.sessionPreset = .high
+           self.sesstion1.beginConfiguration()
+           
+           let videoDevice = getVideoDevice()
+           guard let videoInput = try? AVCaptureDeviceInput(device: videoDevice),
+                 self.sesstion1.canAddInput(videoInput) else { return }
+           self.sesstion1.addInput(videoInput)
+           
+           let videoOutput = AVCaptureMovieFileOutput()
+           guard self.sesstion1.canAddOutput(videoOutput) else { return }
+           self.sesstion1.addOutput(videoOutput)
+           
+           self.sesstion1.commitConfiguration()
+       }
     
     private func checkCameraPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -184,6 +211,7 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
         VideoHelper.startMediaBrowser(delegate: self, sourceType: .camera)
         
     }
+    // 사진첩
     @objc private func keepPhoto() {
         VideoHelper.startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
     }
