@@ -8,12 +8,32 @@
 import UIKit
 import AVFoundation
 import AVKit
+import Photos
+import MobileCoreServices
+
+
+enum VideoHelper {
+    static func startMediaBrowser(
+        delegate: UIViewController & UINavigationControllerDelegate & UIImagePickerControllerDelegate,
+        sourceType: UIImagePickerController.SourceType
+    ) {
+        guard UIImagePickerController.isSourceTypeAvailable(sourceType)
+        else { return }
+
+        let mediaUI = UIImagePickerController()
+        mediaUI.sourceType = sourceType
+        mediaUI.mediaTypes = [kUTTypeMovie as String]
+        mediaUI.allowsEditing = true
+        mediaUI.delegate = delegate
+        delegate.present(mediaUI, animated: true, completion: nil)
+    }
+}
+
 
 class SecondViewController: UIViewController, SecondViewControllerRoutable {
     
     var model: SecondModel
     var testButton = UIButton()
-    
     var session: AVCaptureSession?
     var backInput : AVCaptureInput?
     var frontInput : AVCaptureInput?
@@ -21,9 +41,12 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
     let output = AVCapturePhotoOutput()  //사진촬영
     let previewLayer = AVCaptureVideoPreviewLayer()
     var backCameraOn = true
-    
+    private(set) var isRecording: Bool = false
     let playerViewController = AVPlayerViewController()
     let player = AVPlayer()
+    
+    private let sesstion1 = AVCaptureSession()
+    let videoDevice = AVCaptureDevice.default(.builtInDuoCamera, for: .video, position: .back)
     
     
     init(viewModel: SecondModel) {
@@ -66,6 +89,7 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sesstion1.sessionPreset = .high
         view.layer.addSublayer(previewLayer)
         view.addSubview(shutterButton)
         view.addSubview(keepButton)
@@ -80,9 +104,36 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
         switchCameraButton.center = CGPoint(x: view.frame.size.width/1.25, y: view.frame.size.height - 200)
         switchCameraButton.addTarget(self, action: #selector(switchCamera), for: .touchUpInside)
         
+        let videoDevice = bestDevice(in: .back)
         
         // Do any additional setup after loading the view.
     }
+    
+    
+    
+    
+    func bestDevice(in position: AVCaptureDevice.Position) -> AVCaptureDevice {
+        var deviceTypes: [AVCaptureDevice.DeviceType]!
+        
+        if #available(iOS 11.1, *) {
+            deviceTypes = [.builtInTrueDepthCamera, .builtInDualCamera, .builtInWideAngleCamera]
+        } else {
+            deviceTypes = [.builtInDualCamera, .builtInWideAngleCamera]
+        }
+        
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: deviceTypes,
+            mediaType: .video,
+            position: .unspecified
+        )
+        
+        let devices = discoverySession.devices
+        guard !devices.isEmpty else { fatalError("Missing capture devices.")}
+        
+        return devices.first(where: { device in device.position == position })!
+    }
+    
+    
     private func checkCameraPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
@@ -127,13 +178,19 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
             }
         }
     }
-    
+    // 촬영
     @objc private func didTapTakePhoto() {
-        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        //        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        VideoHelper.startMediaBrowser(delegate: self, sourceType: .camera)
+        
     }
     @objc private func keepPhoto() {
-        playerViewController.player = player
+        VideoHelper.startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
     }
+    
+    
+
+    // 전 후 방 전환
     @objc func switchCamera() {
         if let session = session {
             guard let currentCameraInput: AVCaptureInput = session.inputs.first else {
@@ -166,6 +223,7 @@ class SecondViewController: UIViewController, SecondViewControllerRoutable {
             session.commitConfiguration()
         }
     }
+    
     func cameraWithPosition(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
         for device in discoverySession.devices {
@@ -224,8 +282,8 @@ extension SecondViewController: Presentable {
     @objc func customAction() {
         model.didReceiveDoneRecoding()
     }
+  
 }
-
 
 
 extension SecondViewController: AVCapturePhotoCaptureDelegate {
@@ -244,3 +302,21 @@ extension SecondViewController: AVCapturePhotoCaptureDelegate {
     }
     
 }
+
+extension SecondViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        //동영상 저장
+        if let url = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) {
+            UISaveVideoAtPathToSavedPhotosAlbum(url.path, self, #selector(savedVideo), nil)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+        @objc func savedVideo(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?) {
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    print("success")
+                }
+    }
